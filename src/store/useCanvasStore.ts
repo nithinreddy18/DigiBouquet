@@ -12,6 +12,8 @@ interface CanvasState {
   baseLayer: string;
   topLayer: string;
   hiddenMessage: string;
+  recipient: string;
+  sender: string;
   arrangementStyle: ArrangementStyle;
   
   // Actions
@@ -23,6 +25,8 @@ interface CanvasState {
   setBaseLayer: (layer: string) => void;
   setTopLayer: (layer: string) => void;
   setMessage: (message: string) => void;
+  setRecipient: (name: string) => void;
+  setSender: (name: string) => void;
   autoArrange: () => void;
   resetCanvas: () => void;
 }
@@ -37,6 +41,8 @@ export const useCanvasStore = create<CanvasState>((set) => ({
   baseLayer: 'bush-1',
   topLayer: 'bush-1-top',
   hiddenMessage: '',
+  recipient: 'Beloved,',
+  sender: 'Secret Admirer',
   arrangementStyle: 'market_fresh',
 
   setSelectedMode: (mode) => set({ selectedMode: mode }),
@@ -82,6 +88,8 @@ export const useCanvasStore = create<CanvasState>((set) => ({
   setTopLayer: (layer) => set({ topLayer: layer }),
 
   setMessage: (message) => set({ hiddenMessage: message }),
+  setRecipient: (name) => set({ recipient: name }),
+  setSender: (name) => set({ sender: name }),
 
   autoArrange: () => set((state) => {
     const total = state.placedFlowers.length;
@@ -222,6 +230,8 @@ export const useCanvasStore = create<CanvasState>((set) => ({
     placedGreenery: [], 
     placedDeco: [],
     hiddenMessage: '',
+    recipient: 'Beloved,',
+    sender: 'Secret Admirer',
     arrangementStyle: 'market_fresh'
   }),
 }));

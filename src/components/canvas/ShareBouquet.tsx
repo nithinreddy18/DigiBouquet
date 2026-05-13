@@ -21,7 +21,9 @@ export const ShareBouquet = ({ onBack }: ShareBouquetProps) => {
     selectedMode, 
     baseLayer, 
     topLayer, 
-    hiddenMessage 
+    hiddenMessage,
+    recipient,
+    sender
   } = useCanvasStore();
 
   const [shareUrl, setShareUrl] = useState<string | null>(null);
@@ -30,6 +32,8 @@ export const ShareBouquet = ({ onBack }: ShareBouquetProps) => {
   useEffect(() => {
     const generateLink = async () => {
       try {
+        const fullMessage = `Dear ${recipient}\n\n${hiddenMessage}\n\nSincerely,\n${sender}`;
+        
         const result = await createBouquetAction({
           themeMode: selectedMode,
           baseLayer,
@@ -37,7 +41,7 @@ export const ShareBouquet = ({ onBack }: ShareBouquetProps) => {
           flowers: placedFlowers,
           greenery: placedGreenery,
           deco: placedDeco,
-          hiddenMessage
+          hiddenMessage: fullMessage
         });
 
         if (result.success && result.slug) {
@@ -164,8 +168,8 @@ export const ShareBouquet = ({ onBack }: ShareBouquetProps) => {
 
         {/* Card Overlay at bottom */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-80 bg-white border border-[#111827] p-6 shadow-lg rotate-[-2deg] z-[300]">
-          <p className="font-mono text-xs text-[#111827] line-clamp-3 leading-relaxed">
-            {hiddenMessage || "No message attached."}
+          <p className="font-mono text-[10px] text-[#111827] whitespace-pre-line leading-relaxed">
+            {`Dear ${recipient}\n\n${hiddenMessage || "..."}\n\nSincerely,\n${sender}`}
           </p>
         </div>
       </div>

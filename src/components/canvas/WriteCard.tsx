@@ -12,7 +12,11 @@ interface WriteCardProps {
 }
 
 export const WriteCard = ({ onBack, onNext }: WriteCardProps) => {
-  const { hiddenMessage, setMessage } = useCanvasStore();
+  const { hiddenMessage, setMessage, recipient, setRecipient, sender, setSender } = useCanvasStore();
+
+  const handleNext = () => {
+    onNext();
+  };
 
   return (
     <div className="flex-1 w-full flex flex-col items-center justify-center p-8 bg-[#FDFBF7]">
@@ -34,8 +38,9 @@ export const WriteCard = ({ onBack, onNext }: WriteCardProps) => {
             <span className="font-bold">Dear</span>
             <input 
               type="text" 
-              placeholder="Beloved," 
-              className="border-none focus:ring-0 p-0 text-[#6B7280] w-full"
+              value={recipient}
+              onChange={(e) => setRecipient(e.target.value)}
+              className="border-none focus:ring-0 p-0 text-[#111827] w-full bg-transparent"
             />
           </div>
           
@@ -43,15 +48,16 @@ export const WriteCard = ({ onBack, onNext }: WriteCardProps) => {
             value={hiddenMessage}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="I have so much to tell you, but only this much space on this card! Still, you must know..."
-            className="flex-1 w-full border-none focus:ring-0 resize-none font-mono text-sm leading-relaxed p-0 text-[#111827]"
+            className="flex-1 w-full border-none focus:ring-0 resize-none font-mono text-sm leading-relaxed p-0 text-[#111827] bg-transparent"
           />
 
           <div className="mt-4 flex flex-col items-end font-mono text-sm">
             <span className="font-bold">Sincerely,</span>
             <input 
               type="text" 
-              placeholder="Secret Admirer" 
-              className="border-none focus:ring-0 p-0 text-[#6B7280] text-right"
+              value={sender}
+              onChange={(e) => setSender(e.target.value)}
+              className="border-none focus:ring-0 p-0 text-[#111827] text-right bg-transparent"
             />
           </div>
         </div>
@@ -73,7 +79,7 @@ export const WriteCard = ({ onBack, onNext }: WriteCardProps) => {
           Back
         </Button>
         <Button 
-          onClick={onNext}
+          onClick={handleNext}
           className="rounded-none bg-[#111827] text-white hover:bg-gray-800 px-8 py-4 font-mono text-xs uppercase tracking-widest"
         >
           Next
