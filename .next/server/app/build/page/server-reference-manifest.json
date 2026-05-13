@@ -1,0 +1,17 @@
+{
+  "node": {
+    "4024b134b776cd2af764993f1c901d80dabb4c9b65": {
+      "workers": {
+        "app/build/page": {
+          "moduleId": 81449,
+          "async": true,
+          "exportedName": "createBouquetAction",
+          "filename": "src/actions/createBouquet.ts"
+        }
+      },
+      "exportedName": "createBouquetAction",
+      "filename": "src/actions/createBouquet.ts"
+    }
+  },
+  "edge": {}
+}

@@ -17,6 +17,8 @@ client.execute(`
     base_layer TEXT NOT NULL,
     top_layer TEXT NOT NULL,
     flowers TEXT NOT NULL,
+    greenery TEXT NOT NULL,
+    deco TEXT NOT NULL,
     hidden_message TEXT,
     created_at INTEGER NOT NULL
   );

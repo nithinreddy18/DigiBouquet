@@ -11,6 +11,8 @@ export async function createBouquetAction(payload: {
   baseLayer: string;
   topLayer: string;
   flowers: PlacedFlower[];
+  greenery: PlacedFlower[];
+  deco: PlacedFlower[];
   hiddenMessage: string | null;
 }) {
   try {
@@ -22,6 +24,8 @@ export async function createBouquetAction(payload: {
       baseLayer: payload.baseLayer,
       topLayer: payload.topLayer,
       flowers: payload.flowers,
+      greenery: payload.greenery,
+      deco: payload.deco,
       hiddenMessage: payload.hiddenMessage,
     });
 

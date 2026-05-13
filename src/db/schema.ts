@@ -7,6 +7,8 @@ export const bouquets = sqliteTable('bouquets', {
   baseLayer: text('base_layer').notNull(), // e.g., 'bush-1'
   topLayer: text('top_layer').notNull(), // e.g., 'bush-1-top'
   flowers: text('flowers', { mode: 'json' }).notNull(), // Array of objects
+  greenery: text('greenery', { mode: 'json' }).notNull(), // Array of objects
+  deco: text('deco', { mode: 'json' }).notNull(), // Array of objects
   hiddenMessage: text('hidden_message'), // The plaintext or lightly markdown-formatted message
   createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()).notNull(),
 });

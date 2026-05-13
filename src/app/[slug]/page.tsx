@@ -30,6 +30,8 @@ export default async function BouquetPage({ params }: PageProps) {
     <main className="min-h-screen bg-white">
       <ReadOnlyCanvas 
         flowers={bouquet.flowers as PlacedFlower[]}
+        greenery={bouquet.greenery as PlacedFlower[]}
+        deco={bouquet.deco as PlacedFlower[]}
         baseLayer={bouquet.baseLayer}
         topLayer={bouquet.topLayer}
         themeMode={bouquet.themeMode as ThemeMode}
