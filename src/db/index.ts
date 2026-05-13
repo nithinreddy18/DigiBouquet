@@ -5,8 +5,8 @@ import * as schema from './schema';
 const globalForDb = globalThis as { db?: ReturnType<typeof drizzle<typeof schema>> };
 
 const client = createClient({
-  url: process.env.TURSO_CONNECTION_URL || 'file:local.db',
-  authToken: process.env.TURSO_AUTH_TOKEN,
+  url: (process.env.TURSO_CONNECTION_URL || 'file:local.db').trim(),
+  authToken: process.env.TURSO_AUTH_TOKEN?.trim(),
 });
 
 // Initialize the table if it doesn't exist
