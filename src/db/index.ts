@@ -9,20 +9,26 @@ const client = createClient({
 });
 
 // Initialize the table if it doesn't exist
-client.execute(`
-  CREATE TABLE IF NOT EXISTS bouquets (
-    id TEXT PRIMARY KEY,
-    slug TEXT NOT NULL UNIQUE,
-    theme_mode TEXT NOT NULL DEFAULT 'color',
-    base_layer TEXT NOT NULL,
-    top_layer TEXT NOT NULL,
-    flowers TEXT NOT NULL,
-    greenery TEXT NOT NULL,
-    deco TEXT NOT NULL,
-    hidden_message TEXT,
-    created_at INTEGER NOT NULL
-  );
-`).catch(console.error);
+const initDb = async () => {
+  await client.execute(`
+    CREATE TABLE IF NOT EXISTS bouquets (
+      id TEXT PRIMARY KEY,
+      slug TEXT NOT NULL UNIQUE,
+      theme_mode TEXT NOT NULL DEFAULT 'color',
+      base_layer TEXT NOT NULL,
+      top_layer TEXT NOT NULL,
+      flowers TEXT NOT NULL,
+      hidden_message TEXT,
+      created_at INTEGER NOT NULL
+    );
+  `).catch(console.error);
+
+  // Migration: Ensure greenery and deco columns exist
+  try { await client.execute(`ALTER TABLE bouquets ADD COLUMN greenery TEXT NOT NULL DEFAULT '[]'`); } catch (e) {}
+  try { await client.execute(`ALTER TABLE bouquets ADD COLUMN deco TEXT NOT NULL DEFAULT '[]'`); } catch (e) {}
+};
+
+initDb();
 
 let dbInstance: any;
 

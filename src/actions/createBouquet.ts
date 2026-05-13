@@ -2,8 +2,7 @@
 
 import { db } from '@/db';
 import { bouquets } from '@/db/schema';
-import { nanoid } from 'nanoid';
-
+import crypto from 'crypto';
 import { PlacedFlower } from '@/types';
 
 export async function createBouquetAction(payload: {
@@ -17,6 +16,7 @@ export async function createBouquetAction(payload: {
 }) {
   try {
     const slug = crypto.randomUUID();
+    console.log('Generating bouquet with slug:', slug);
     
     await db.insert(bouquets).values({
       slug,

@@ -1,4 +1,5 @@
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+import crypto from 'crypto';
 
 export const bouquets = sqliteTable('bouquets', {
   id: text('id').$defaultFn(() => crypto.randomUUID()).primaryKey(),
