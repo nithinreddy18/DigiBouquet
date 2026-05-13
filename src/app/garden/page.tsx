@@ -7,20 +7,27 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { PlacedFlower } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
 export default async function GardenPage() {
-  const recentBouquets = await db.query.bouquets.findMany({
-    orderBy: [desc(bouquets.createdAt)],
-    limit: 50,
-    columns: {
-      id: true,
-      slug: true,
-      themeMode: true,
-      baseLayer: true,
-      topLayer: true,
-      flowers: true,
-      createdAt: true,
-    }
-  });
+  let recentBouquets: any[] = [];
+  try {
+    recentBouquets = await db.query.bouquets.findMany({
+      orderBy: [desc(bouquets.createdAt)],
+      limit: 50,
+      columns: {
+        id: true,
+        slug: true,
+        themeMode: true,
+        baseLayer: true,
+        topLayer: true,
+        flowers: true,
+        createdAt: true,
+      }
+    });
+  } catch (error) {
+    console.error('Failed to fetch bouquets:', error);
+  }
 
   return (
     <main className="min-h-screen bg-[#FAFAFA] p-8 md:p-16 lg:p-24 relative">
