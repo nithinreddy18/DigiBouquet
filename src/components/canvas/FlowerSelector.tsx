@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { useCanvasStore } from '@/store/useCanvasStore';
 import { FLOWER_ASSETS } from '@/lib/assets';
 import { FlowerType } from '@/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 const FLOWER_INFO: Record<FlowerType, { meaning: string; month: string }> = {
   Daisy: { meaning: 'Innocence', month: 'April' },

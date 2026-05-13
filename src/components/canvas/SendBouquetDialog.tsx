@@ -14,14 +14,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { useCanvasStore } from '@/store/useCanvasStore';
 import { toast } from 'sonner';
 import { createBouquetAction } from '@/actions/createBouquet';
-import { useRouter } from 'next/navigation';
 
 export const SendBouquetDialog = () => {
   const { hiddenMessage, setMessage, placedFlowers, placedGreenery, placedDeco, selectedMode, baseLayer, topLayer } = useCanvasStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [open, setOpen] = useState(false);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
-  const router = useRouter();
 
   const handleSend = async () => {
     if (placedFlowers.length === 0) {

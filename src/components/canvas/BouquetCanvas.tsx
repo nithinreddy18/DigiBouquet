@@ -4,7 +4,8 @@ import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useCanvasStore } from '@/store/useCanvasStore';
-import { FLOWER_ASSETS, BUSH_ASSETS, GREENERY_ASSETS, DECO_ASSETS } from '@/lib/assets';
+import { FlowerType } from '@/types';
+import { FLOWER_ASSETS, GREENERY_ASSETS, DECO_ASSETS } from '@/lib/assets';
 import { cn } from '@/lib/utils';
 
 export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
@@ -12,14 +13,11 @@ export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
     placedFlowers, 
     placedGreenery,
     placedDeco,
-    baseLayer, 
     selectedMode, 
     updateFlowerPosition 
   } = useCanvasStore();
   
   const canvasRef = useRef<HTMLDivElement>(null);
-
-  const bushAsset = BUSH_ASSETS[baseLayer] || BUSH_ASSETS['bush-1'];
 
   return (
     <div 
@@ -110,7 +108,7 @@ export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
           }}
         >
           <Image
-            src={FLOWER_ASSETS[flower.type]}
+            src={FLOWER_ASSETS[flower.type as FlowerType]}
             alt={flower.type}
             width={128}
             height={128}

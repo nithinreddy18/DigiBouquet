@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FLOWER_ASSETS, GREENERY_ASSETS, DECO_ASSETS } from '@/lib/assets';
 import { cn } from '@/lib/utils';
-import { PlacedFlower, ThemeMode } from '@/types';
+import { PlacedFlower, ThemeMode, FlowerType } from '@/types';
 import { Share, Check } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -111,7 +111,7 @@ export const ReadOnlyCanvas = ({
                 }}
               >
                 <Image
-                  src={FLOWER_ASSETS[flower.type]}
+                  src={FLOWER_ASSETS[flower.type as FlowerType]}
                   alt={flower.type}
                   width={160}
                   height={160}

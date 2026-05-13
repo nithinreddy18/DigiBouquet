@@ -12,9 +12,16 @@ export type FlowerType =
   | 'Daisy' 
   | 'Tulip';
 
+export type AssetType = 
+  | FlowerType 
+  | 'greenery-1' 
+  | 'greenery-2' 
+  | 'greenery-3' 
+  | 'deco-white';
+
 export interface PlacedFlower {
   id: string;
-  type: FlowerType;
+  type: AssetType;
   x: number;
   y: number;
   zIndex: number;

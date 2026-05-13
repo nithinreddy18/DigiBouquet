@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useCanvasStore } from '@/store/useCanvasStore';
+import { FlowerType } from '@/types';
 import { FLOWER_ASSETS, GREENERY_ASSETS, DECO_ASSETS } from '@/lib/assets';
 import { Button } from '@/components/ui/button';
 import { createBouquetAction } from '@/actions/createBouquet';
@@ -58,7 +59,7 @@ export const ShareBouquet = ({ onBack }: ShareBouquetProps) => {
     };
 
     generateLink();
-  }, []);
+  }, [baseLayer, hiddenMessage, placedDeco, placedFlowers, placedGreenery, recipient, selectedMode, sender, topLayer]);
 
   const copyLink = async () => {
     if (!shareUrl) {
@@ -161,7 +162,7 @@ export const ShareBouquet = ({ onBack }: ShareBouquetProps) => {
                 transform: `translate(-50%, -50%) translate(${flower.x}px, ${flower.y}px) rotate(${flower.rotation}deg) scale(${flower.scale})`,
               }}
             >
-              <Image src={FLOWER_ASSETS[flower.type]} alt={flower.type} width={140} height={140} className={cn(selectedMode === 'mono' && "grayscale")} />
+              <Image src={FLOWER_ASSETS[flower.type as FlowerType]} alt={flower.type} width={140} height={140} className={cn(selectedMode === 'mono' && "grayscale")} />
             </div>
           ))}
         </div>

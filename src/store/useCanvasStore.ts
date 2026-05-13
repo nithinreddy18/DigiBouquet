@@ -126,7 +126,7 @@ export const useCanvasStore = create<CanvasState>((set) => ({
         for (let j = 0; j < 8; j++) {
           const angle = (j / 8) * Math.PI * 2;
           arrangedGreenery.push({
-            id: uuidv4(), type: 'greenery-1' as any,
+            id: uuidv4(), type: 'greenery-1',
             x: Math.cos(angle) * 160, y: Math.sin(angle) * 160,
             rotation: Math.random() * 360, scale: 1.2, zIndex: 15
           });
@@ -146,7 +146,7 @@ export const useCanvasStore = create<CanvasState>((set) => ({
         });
         for (let j = 0; j < 12; j++) {
           arrangedGreenery.push({
-            id: uuidv4(), type: `greenery-${(j % 3) + 1}` as any,
+            id: uuidv4(), type: `greenery-${(j % 3) + 1}` as 'greenery-1' | 'greenery-2' | 'greenery-3',
             x: (Math.random() - 0.5) * 400, y: (Math.random() - 0.5) * 400,
             rotation: Math.random() * 360, scale: 0.8, zIndex: j < 6 ? 15 : 45
           });
@@ -170,7 +170,7 @@ export const useCanvasStore = create<CanvasState>((set) => ({
         for (let j = 0; j < 6; j++) {
           const angle = (j / 6) * Math.PI * 2;
           arrangedGreenery.push({
-            id: uuidv4(), type: 'greenery-2' as any,
+            id: uuidv4(), type: 'greenery-2',
             x: Math.cos(angle) * 100, y: Math.sin(angle) * 100,
             rotation: Math.random() * 360, scale: 1.5, zIndex: 15
           });
@@ -190,7 +190,7 @@ export const useCanvasStore = create<CanvasState>((set) => ({
         });
         for (let j = 0; j < 5; j++) {
           arrangedGreenery.push({
-            id: uuidv4(), type: 'greenery-3' as any,
+            id: uuidv4(), type: 'greenery-3',
             x: (j - 2) * 80, y: -180,
             rotation: (j - 2) * 15, scale: 1.8, zIndex: 10
           });
@@ -208,7 +208,7 @@ export const useCanvasStore = create<CanvasState>((set) => ({
         });
         for (let j = 0; j < 20; j++) {
           arrangedDeco.push({
-            id: uuidv4(), type: 'deco-white' as any,
+            id: uuidv4(), type: 'deco-white',
             x: (Math.random() - 0.5) * 350, y: (Math.random() - 0.5) * 350,
             rotation: Math.random() * 360, scale: 0.4 + Math.random() * 0.3, zIndex: 55
           });

@@ -2,7 +2,7 @@ import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 import * as schema from './schema';
 
-const globalForDb = globalThis as any;
+const globalForDb = globalThis as { db?: ReturnType<typeof drizzle<typeof schema>> };
 
 const client = createClient({
   url: process.env.TURSO_CONNECTION_URL || 'file:local.db',
@@ -25,13 +25,13 @@ const initDb = async () => {
   `).catch(console.error);
 
   // Migration: Ensure greenery and deco columns exist
-  try { await client.execute(`ALTER TABLE bouquets ADD COLUMN greenery TEXT NOT NULL DEFAULT '[]'`); } catch (e) {}
-  try { await client.execute(`ALTER TABLE bouquets ADD COLUMN deco TEXT NOT NULL DEFAULT '[]'`); } catch (e) {}
+  try { await client.execute(`ALTER TABLE bouquets ADD COLUMN greenery TEXT NOT NULL DEFAULT '[]'`); } catch { /* ignore */ }
+  try { await client.execute(`ALTER TABLE bouquets ADD COLUMN deco TEXT NOT NULL DEFAULT '[]'`); } catch { /* ignore */ }
 };
 
 initDb();
 
-let dbInstance: any;
+let dbInstance: ReturnType<typeof drizzle<typeof schema>>;
 
 if (process.env.NODE_ENV === 'production') {
   dbInstance = drizzle(client, { schema });
@@ -42,4 +42,4 @@ if (process.env.NODE_ENV === 'production') {
   dbInstance = globalForDb.db;
 }
 
-export const db = dbInstance as ReturnType<typeof drizzle<typeof schema>>;
+export const db = dbInstance;
