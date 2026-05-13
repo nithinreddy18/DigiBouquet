@@ -56,16 +56,35 @@ export const ShareBouquet = ({ onBack }: ShareBouquetProps) => {
     generateLink();
   }, []);
 
-  const copyLink = () => {
-    if (shareUrl) {
-      navigator.clipboard.writeText(shareUrl).then(() => {
-        toast.success("Link copied to clipboard!");
-      }).catch(err => {
-        console.error('Failed to copy:', err);
-        toast.error("Failed to copy link.");
-      });
-    } else {
+  const copyLink = async () => {
+    if (!shareUrl) {
       toast.error("Link not ready yet. Please wait.");
+      return;
+    }
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(shareUrl);
+        toast.success("Link copied to clipboard!");
+      } else {
+        // Fallback for non-secure contexts
+        const textArea = document.createElement("textarea");
+        textArea.value = shareUrl;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          toast.success("Link copied to clipboard!");
+        } catch (err) {
+          console.error('Fallback: Oops, unable to copy', err);
+          toast.error("Manual copy: " + shareUrl);
+        }
+        document.body.removeChild(textArea);
+      }
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+      toast.error("Manual copy: " + shareUrl);
     }
   };
 

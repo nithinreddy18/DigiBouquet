@@ -16,7 +16,7 @@ export async function createBouquetAction(payload: {
   hiddenMessage: string | null;
 }) {
   try {
-    const slug = nanoid(8);
+    const slug = crypto.randomUUID();
     
     await db.insert(bouquets).values({
       slug,
