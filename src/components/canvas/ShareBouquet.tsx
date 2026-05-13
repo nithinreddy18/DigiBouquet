@@ -41,7 +41,7 @@ export const ShareBouquet = ({ onBack }: ShareBouquetProps) => {
         });
 
         if (result.success && result.slug) {
-          setShareUrl(`${window.location.origin}/${result.slug}`);
+          setShareUrl(`${window.location.origin}/bouquet/${result.slug}`);
         } else {
           toast.error("Failed to generate share link.");
         }
@@ -58,8 +58,14 @@ export const ShareBouquet = ({ onBack }: ShareBouquetProps) => {
 
   const copyLink = () => {
     if (shareUrl) {
-      navigator.clipboard.writeText(shareUrl);
-      toast.success("Link copied to clipboard!");
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        toast.success("Link copied to clipboard!");
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        toast.error("Failed to copy link.");
+      });
+    } else {
+      toast.error("Link not ready yet. Please wait.");
     }
   };
 
