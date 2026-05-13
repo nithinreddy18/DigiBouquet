@@ -57,14 +57,14 @@ export const SendBouquetDialog = () => {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen} className="relative z-[200]">
-      <DialogTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger render={
         <button 
           className="min-h-[44px] flex items-center justify-center px-10 py-4 bg-[#111827] text-white rounded-full font-medium transition-all duration-200 ease-in-out hover:bg-gray-800 active:scale-95 shadow-md tracking-wide"
         >
           SEND BOUQUET
         </button>
-      </DialogTrigger>
+      } />
       <DialogContent className="sm:max-w-[525px] bg-white border-none shadow-2xl z-[100]">
         <DialogHeader>
           <DialogTitle className="text-2xl font-light tracking-widest uppercase text-center mb-4">
