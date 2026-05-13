@@ -29,7 +29,9 @@ const initDb = async () => {
   try { await client.execute(`ALTER TABLE bouquets ADD COLUMN deco TEXT NOT NULL DEFAULT '[]'`); } catch { /* ignore */ }
 };
 
-initDb();
+if (process.env.NODE_ENV !== 'production' || process.env.TURSO_CONNECTION_URL) {
+  initDb().catch(console.error);
+}
 
 let dbInstance: ReturnType<typeof drizzle<typeof schema>>;
 
