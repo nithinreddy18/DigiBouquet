@@ -10,7 +10,7 @@ const client = createClient({
 });
 
 // Initialize the table if it doesn't exist
-const initDb = async () => {
+export const initDb = async () => {
   await client.execute(`
     CREATE TABLE IF NOT EXISTS bouquets (
       id TEXT PRIMARY KEY,
@@ -29,8 +29,10 @@ const initDb = async () => {
   try { await client.execute(`ALTER TABLE bouquets ADD COLUMN deco TEXT NOT NULL DEFAULT '[]'`); } catch { /* ignore */ }
 };
 
-if (process.env.NODE_ENV !== 'production' || process.env.TURSO_CONNECTION_URL) {
-  initDb().catch(console.error);
+if (typeof window === 'undefined') {
+  if (process.env.NODE_ENV !== 'production' || process.env.TURSO_CONNECTION_URL) {
+    initDb().catch(console.error);
+  }
 }
 
 let dbInstance: ReturnType<typeof drizzle<typeof schema>>;

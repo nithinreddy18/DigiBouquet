@@ -1,6 +1,6 @@
 'use server';
 
-import { db } from '@/db';
+import { db, initDb } from '@/db';
 import { bouquets } from '@/db/schema';
 import crypto from 'crypto';
 import { PlacedFlower } from '@/types';
@@ -15,6 +15,7 @@ export async function createBouquetAction(payload: {
   hiddenMessage: string | null;
 }) {
   try {
+    await initDb();
     const slug = crypto.randomUUID();
     console.log('Generating bouquet with slug:', slug);
     
