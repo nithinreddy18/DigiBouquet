@@ -5,7 +5,8 @@ import * as schema from './schema';
 const globalForDb = globalThis as any;
 
 const client = createClient({
-  url: 'file:local.db',
+  url: process.env.TURSO_CONNECTION_URL || 'file:local.db',
+  authToken: process.env.TURSO_AUTH_TOKEN,
 });
 
 // Initialize the table if it doesn't exist
