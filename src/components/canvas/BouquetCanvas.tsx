@@ -22,7 +22,7 @@ export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
   return (
     <div 
       ref={canvasRef}
-      className="relative w-full aspect-square max-w-[500px] mx-auto bg-transparent select-none touch-none"
+      className="relative w-full h-full bg-transparent select-none touch-none"
       style={{ touchAction: 'none' }}
     >
       {/* Greenery Layer */}
@@ -42,7 +42,8 @@ export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
             zIndex: green.zIndex,
             left: '50%',
             top: '50%',
-            transform: 'translate(-50%, -50%)',
+            marginLeft: -100,
+            marginTop: -100,
           }}
         >
           <Image
@@ -76,7 +77,8 @@ export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
             zIndex: deco.zIndex,
             left: '50%',
             top: '50%',
-            transform: 'translate(-50%, -50%)',
+            marginLeft: -50,
+            marginTop: -50,
           }}
         >
           <Image
@@ -119,7 +121,8 @@ export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
             zIndex: flower.zIndex,
             left: '50%',
             top: '50%',
-            transform: 'translate(-50%, -50%)',
+            marginLeft: -80,
+            marginTop: -80,
           }}
         >
           <Image

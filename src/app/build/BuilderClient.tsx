@@ -113,7 +113,7 @@ export function BuilderClient({ initialMode }: { initialMode: ThemeMode }) {
             </div>
             
             <div className="w-full max-w-2xl mx-auto flex-1 flex items-center justify-center p-4">
-              <div className="relative p-8 bg-white/40 backdrop-blur-sm border border-white/20 shadow-2xl rounded-3xl overflow-hidden">
+              <div className="relative w-full aspect-square max-w-[500px] p-8 bg-white/40 backdrop-blur-sm border border-white/20 shadow-2xl rounded-[3rem] flex items-center justify-center">
                 <BouquetCanvas readOnly={false} />
               </div>
             </div>
