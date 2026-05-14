@@ -8,13 +8,13 @@ import { FLOWER_ASSETS, GREENERY_ASSETS, DECO_ASSETS } from '@/lib/assets';
 const Decoration = ({ src, className, delay = 0, duration = 10, scale = 1, rotate = 0 }: any) => (
   <motion.div
     initial={{ opacity: 0, scale: 0 }}
-    animate={{ 
-      opacity: 0.7, 
+    animate={{
+      opacity: 0.7,
       scale: scale,
       y: [0, -15, 0],
       rotate: [rotate, rotate + 10, rotate - 10, rotate]
     }}
-    transition={{ 
+    transition={{
       opacity: { duration: 1 },
       y: { duration, repeat: Infinity, ease: "easeInOut", delay },
       rotate: { duration: duration * 1.5, repeat: Infinity, ease: "easeInOut", delay },
@@ -34,17 +34,17 @@ export default function Home() {
       <Decoration src={FLOWER_ASSETS.Peony} className="top-[15%] right-[8%]" delay={1} duration={15} scale={1.4} rotate={-10} />
       <Decoration src={FLOWER_ASSETS.Sunflower} className="bottom-[10%] left-[5%]" delay={2} duration={14} scale={1.1} rotate={20} />
       <Decoration src={FLOWER_ASSETS.Tulip} className="bottom-[15%] right-[12%]" delay={0.5} duration={11} scale={1.3} rotate={-5} />
-      
+
       <Decoration src={GREENERY_ASSETS['greenery-1']} className="top-[40%] left-[-2%]" delay={3} duration={18} scale={1.8} rotate={45} />
       <Decoration src={GREENERY_ASSETS['greenery-2']} className="top-[60%] right-[-3%]" delay={1.5} duration={20} scale={2.0} rotate={-30} />
-      
+
       <Decoration src={DECO_ASSETS['deco-white']} className="top-[25%] left-[30%]" delay={4} duration={8} scale={0.5} />
       <Decoration src={DECO_ASSETS['deco-white']} className="bottom-[35%] right-[25%]" delay={2.5} duration={9} scale={0.6} />
       <Decoration src={DECO_ASSETS['deco-white']} className="top-[70%] left-[20%]" delay={1} duration={10} scale={0.4} />
 
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-2xl text-center space-y-12">
-        
+
         {/* Visual Centerpiece - A slightly messy stack */}
         <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto pointer-events-none drop-shadow-xl">
           <motion.div
@@ -77,16 +77,16 @@ export default function Home() {
 
         {/* Headings */}
         <div className="space-y-6">
-          <motion.h1 
+          <motion.h1
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-6xl md:text-8xl font-bold tracking-tighter text-[#111827] italic" 
+            className="text-6xl md:text-8xl font-bold tracking-tighter text-[#111827] italic"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
             digibouquet
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -97,7 +97,7 @@ export default function Home() {
         </div>
 
         {/* CTA Block */}
-        <motion.div 
+        <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 1 }}
@@ -139,7 +139,7 @@ export default function Home() {
           <a href="https://github.com/nithinreddy18" target="_blank" rel="noopener noreferrer" className="hover:text-[#111827] transition-colors">
             @nithinreddy18
           </a>
-          <span>© 2024</span>
+          <span>© 2026</span>
         </div>
       </footer>
     </main>
