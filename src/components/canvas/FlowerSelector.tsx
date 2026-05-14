@@ -2,8 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { useCanvasStore } from '@/store/useCanvasStore';
-import { FLOWER_ASSETS } from '@/lib/assets';
+import { FLOWER_ASSETS, GREENERY_ASSETS, DECO_ASSETS } from '@/lib/assets';
 import { FlowerType } from '@/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -37,16 +38,21 @@ export function FlowerSelector({ onNext }: { onNext: () => void }) {
   const totalSelected = placedFlowers.length;
 
   return (
-    <div className="flex flex-col items-center w-full max-w-4xl mx-auto pb-32 pt-8">
-      {/* Flower Grid */}
-      <div className="grid grid-cols-3 md:grid-cols-4 gap-8 md:gap-12 w-full place-items-center">
-        {flowerTypes.map((type) => {
+    <div className="flex flex-col items-center w-full max-w-5xl mx-auto pb-48 pt-4 px-6 relative">
+      {/* Flower Grid - More organic spacing */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-8 gap-y-12 w-full place-items-center">
+        {flowerTypes.map((type, idx) => {
           const count = counts[type];
+          // Slight random rotation for the "cluttered" look
+          const randomRotate = (idx % 3 === 0 ? 5 : idx % 2 === 0 ? -5 : 0);
+          
           return (
             <Tooltip key={type}>
               <TooltipTrigger
                 render={
-                  <div
+                  <motion.div
+                    whileHover={{ scale: 1.05, rotate: randomRotate * 1.5 }}
+                    whileTap={{ scale: 0.95 }}
                     role="button"
                     tabIndex={0}
                     onClick={() => addFlower(type)}
@@ -55,32 +61,38 @@ export function FlowerSelector({ onNext }: { onNext: () => void }) {
                         addFlower(type);
                       }
                     }}
-                    className="relative group w-24 h-24 md:w-32 md:h-32 transition-transform hover:scale-105 active:scale-95 cursor-pointer outline-none focus:ring-0"
+                    className="relative group w-28 h-28 md:w-36 md:h-36 transition-all duration-300 cursor-pointer outline-none focus:ring-0"
+                    style={{ rotate: randomRotate }}
                   >
+                    <div className="absolute inset-0 bg-white/30 rounded-full blur-xl group-hover:bg-white/50 transition-all duration-500" />
                     <Image
                       src={FLOWER_ASSETS[type]}
                       alt={type}
                       fill
-                      sizes="(max-width: 768px) 100px, 150px"
+                      sizes="(max-width: 768px) 120px, 180px"
                       className={cn(
-                        "object-contain",
-                        selectedMode === 'mono' && "grayscale contrast-[1.2]"
+                         "object-contain relative z-10 drop-shadow-sm group-hover:drop-shadow-md",
+                         selectedMode === 'mono' && "grayscale contrast-[1.2]"
                       )}
                     />
-                    {/* Badge */}
+                    {/* Badge - Custom flower shape or just lovely */}
                     {count > 0 && (
-                      <div className="absolute -top-2 -right-2 bg-[#111827] text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full z-10 border-2 border-[#FAFAFA]">
+                      <motion.div 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="absolute -top-1 -right-1 bg-[#111827] text-white text-[10px] font-mono w-7 h-7 flex items-center justify-center rounded-full z-20 border-2 border-white shadow-lg"
+                      >
                         {count}
-                      </div>
+                      </motion.div>
                     )}
-                  </div>
+                  </motion.div>
                 }
               />
-              <TooltipContent side="bottom" className="bg-[#FAFAFA] border border-[#111827] text-[#111827] px-4 py-3 shadow-md rounded-md z-50">
-                <div className="text-center space-y-1">
-                  <div className="font-bold tracking-widest uppercase text-sm">{type}</div>
-                  <div className="font-mono text-xs opacity-80">{FLOWER_INFO[type].meaning}</div>
-                  <div className="font-mono text-xs opacity-80">Birth Month: {FLOWER_INFO[type].month}</div>
+              <TooltipContent side="bottom" className="bg-[#111827] text-white px-6 py-4 shadow-2xl rounded-2xl z-50 border-none">
+                <div className="text-center space-y-2">
+                  <div className="font-bold tracking-widest uppercase text-xs italic" style={{ fontFamily: 'var(--font-playfair)' }}>{type}</div>
+                  <div className="h-[1px] w-8 bg-white/20 mx-auto" />
+                  <div className="font-mono text-[9px] uppercase tracking-tighter opacity-70">Meaning: {FLOWER_INFO[type].meaning}</div>
                 </div>
               </TooltipContent>
             </Tooltip>
@@ -88,35 +100,46 @@ export function FlowerSelector({ onNext }: { onNext: () => void }) {
         })}
       </div>
 
-      {/* Selected Tags at Bottom */}
-      <div className="fixed bottom-24 left-0 right-0 pointer-events-none flex justify-center z-40 px-4">
-        <div className="flex flex-wrap justify-center gap-2 max-w-3xl pointer-events-auto">
+      {/* Selected Tags at Bottom - More like a scrapbook */}
+      <div className="fixed bottom-28 left-0 right-0 pointer-events-none flex justify-center z-40 px-4">
+        <div className="flex flex-wrap justify-center gap-3 max-w-3xl pointer-events-auto">
           {flowerTypes.map((type) => {
             if (counts[type] === 0) return null;
             return (
-              <button
+              <motion.button
                 key={`tag-${type}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.05 }}
                 type="button"
                 onClick={() => removeFlowerByType(type)}
-                className="px-4 py-1.5 rounded-full border border-[#111827] bg-[#FAFAFA] text-[#111827] text-xs font-mono uppercase hover:bg-gray-100 transition-colors shadow-sm"
+                className="px-5 py-2 rounded-lg border border-dashed border-[#111827]/30 bg-white/80 backdrop-blur-sm text-[#111827] text-[10px] font-mono uppercase hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all shadow-sm flex items-center gap-2"
               >
-                {type} x{counts[type]}
-              </button>
+                <span>{type}</span>
+                <span className="opacity-40">×</span>
+                <span className="font-bold">{counts[type]}</span>
+              </motion.button>
             );
           })}
         </div>
       </div>
 
-      {/* Next Button */}
+      {/* Next Button - Matching landing page style */}
       {totalSelected > 0 && (
-        <div className="fixed bottom-8 left-0 right-0 flex justify-center z-50 px-4 animate-in slide-in-from-bottom-4">
-          <Button
-            type="button"
-            onClick={onNext}
-            className="min-h-[44px] flex items-center justify-center px-10 py-6 bg-[#111827] text-white rounded-full font-medium transition-all duration-200 hover:bg-gray-800 active:scale-95 shadow-md tracking-wide"
+        <div className="fixed bottom-10 left-0 right-0 flex justify-center z-50 px-4">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
           >
-            ARRANGE BOUQUET ({totalSelected})
-          </Button>
+            <Button
+              type="button"
+              onClick={onNext}
+              className="group relative overflow-hidden bg-[#111827] text-white px-12 py-7 rounded-full font-serif text-xl italic transition-all duration-300 hover:pr-16 active:scale-95 shadow-2xl"
+            >
+              <span className="relative z-10">Arrange Bouquet ({totalSelected})</span>
+              <span className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300">→</span>
+            </Button>
+          </motion.div>
         </div>
       )}
     </div>
