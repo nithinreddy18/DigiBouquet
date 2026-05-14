@@ -64,8 +64,8 @@ export default function Home() {
         </div>
         <div>
           <span>made by </span>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="font-medium text-[#111827] hover:underline">
-            @pau_wee_
+          <a href="https://github.com/nithinreddy18" target="_blank" rel="noopener noreferrer" className="font-medium text-[#111827] hover:underline">
+            @nithinreddy18
           </a>
         </div>
       </footer>
