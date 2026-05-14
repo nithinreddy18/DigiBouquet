@@ -22,29 +22,34 @@ export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
   return (
     <div 
       ref={canvasRef}
-      className="relative w-full aspect-square max-w-[600px] mx-auto overflow-hidden bg-transparent select-none touch-none"
+      className="relative w-full aspect-square max-w-[500px] mx-auto bg-transparent select-none touch-none"
       style={{ touchAction: 'none' }}
     >
-      {/* Greenery Layer (Some behind flowers) */}
+      {/* Greenery Layer */}
       {placedGreenery.map((green) => (
         <motion.div
           key={green.id}
-          initial={{ x: green.x, y: green.y, rotate: green.rotation, scale: 0 }}
-          animate={{ x: green.x, y: green.y, rotate: green.rotation, scale: green.scale }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ 
+            opacity: 1, 
+            scale: green.scale,
+            x: green.x,
+            y: green.y,
+            rotate: green.rotation 
+          }}
           className="absolute"
           style={{ 
             zIndex: green.zIndex,
             left: '50%',
             top: '50%',
-            marginLeft: -80,
-            marginTop: -80,
+            transform: 'translate(-50%, -50%)',
           }}
         >
           <Image
             src={GREENERY_ASSETS[green.type] || GREENERY_ASSETS['greenery-1']}
-            alt="greenery"
-            width={160}
-            height={160}
+            alt=""
+            width={200}
+            height={200}
             className={cn(
               "object-contain pointer-events-none",
               selectedMode === 'mono' && "grayscale contrast-[1.2]"
@@ -54,26 +59,31 @@ export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
         </motion.div>
       ))}
 
-      {/* Decorative Layer (Baby's Breath) */}
+      {/* Decorative Layer */}
       {placedDeco.map((deco) => (
         <motion.div
           key={deco.id}
-          initial={{ x: deco.x, y: deco.y, rotate: deco.rotation, scale: 0 }}
-          animate={{ x: deco.x, y: deco.y, rotate: deco.rotation, scale: deco.scale }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ 
+            opacity: 1, 
+            scale: deco.scale,
+            x: deco.x,
+            y: deco.y,
+            rotate: deco.rotation 
+          }}
           className="absolute"
           style={{ 
             zIndex: deco.zIndex,
             left: '50%',
             top: '50%',
-            marginLeft: -40,
-            marginTop: -40,
+            transform: 'translate(-50%, -50%)',
           }}
         >
           <Image
             src={DECO_ASSETS[deco.type] || DECO_ASSETS['deco-white']}
-            alt="deco"
-            width={80}
-            height={80}
+            alt=""
+            width={100}
+            height={100}
             className={cn(
               "object-contain pointer-events-none",
               selectedMode === 'mono' && "grayscale contrast-[1.2]"
@@ -96,22 +106,27 @@ export const BouquetCanvas = ({ readOnly = false }: { readOnly?: boolean }) => {
               updateFlowerPosition(flower.id, flower.x + info.offset.x, flower.y + info.offset.y);
             }
           }}
-          initial={{ x: flower.x, y: flower.y, rotate: flower.rotation, scale: 0 }}
-          animate={{ x: flower.x, y: flower.y, rotate: flower.rotation, scale: flower.scale }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ 
+            opacity: 1, 
+            scale: flower.scale,
+            x: flower.x,
+            y: flower.y,
+            rotate: flower.rotation 
+          }}
           className="absolute z-30 cursor-grab active:cursor-grabbing"
           style={{ 
             zIndex: flower.zIndex,
             left: '50%',
             top: '50%',
-            marginLeft: -64, 
-            marginTop: -64,
+            transform: 'translate(-50%, -50%)',
           }}
         >
           <Image
             src={FLOWER_ASSETS[flower.type as FlowerType]}
             alt={flower.type}
-            width={128}
-            height={128}
+            width={160}
+            height={160}
             className={cn(
               "object-contain pointer-events-none",
               selectedMode === 'mono' && "grayscale contrast-[1.2]"
